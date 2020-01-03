@@ -1,0 +1,7 @@
+--no-private
+--use-cache
+--protected
+--markup markdown
+--readme README.md
+--files **/*.md
+src/**/*.rb

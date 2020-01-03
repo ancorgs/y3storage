@@ -1,0 +1,6 @@
+task "test" do
+  files = Dir["**/test/**/*_{spec,test}.rb"].join("' '")
+  next if files.empty?
+
+  sh("rspec --color --format doc '#{files}'")
+end

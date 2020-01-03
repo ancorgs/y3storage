@@ -1,0 +1,9 @@
+name: y3storage
+version: 0.1.0
+
+authors:
+  - Ancor Gonzalez Sosa <ancor@suse.de>
+
+crystal: 0.32.1
+
+license: GPL
