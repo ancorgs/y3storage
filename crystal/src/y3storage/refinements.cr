@@ -1,4 +1,4 @@
-# Copyright (c) [2016-2017] SUSE LLC
+# Copyright (c) [2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,9 +17,4 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-module Y3storage
-  VERSION = "0.1.0"
-end
-
-require "./y3storage/disk_size"
-require "./y3storage/refinements"
+require "./refinements/size_casts"

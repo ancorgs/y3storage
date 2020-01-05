@@ -6,10 +6,6 @@ describe Y3Storage::DiskSize do
   unlimited = Y3Storage::DiskSize.unlimited
   one_byte = Y3Storage::DiskSize.new(1)
 
-  # We have nothing equivalent to Y2Storage::Refinements::SizeCasts, let's try
-  # this as another way to shorten definition of sizes
-  s = described_class
-
   describe ".new" do
     context "when no param is passed" do
       it "creates a disk size of 0 bytes" do
@@ -318,15 +314,15 @@ describe Y3Storage::DiskSize do
   describe "#power_of?" do
     context "when the number of bytes is power of the given value" do
       it "returns true" do
-        s.mib(8).power_of?(2).should eq true
-        s.kb(100).power_of?(10).should eq true
+        8.mib.power_of?(2).should eq true
+        100.kb.power_of?(10).should eq true
       end
     end
 
     context "when the number of bytes is not power of the given value" do
       it "returns false" do
-        s.mib(8).power_of?(10).should eq false
-        s.kb(100).power_of?(2).should eq false
+        8.mib.power_of?(10).should eq false
+        100.mib.power_of?(2).should eq false
       end
     end
 
@@ -510,19 +506,19 @@ describe Y3Storage::DiskSize do
 
     it "returns the same value if any of the operands is zero" do
       zero.ceil(rounding).should eq zero
-      s.mib(4).ceil(zero).should eq s.mib(4)
+      4.mib.ceil(zero).should eq 4.mib
       zero.ceil(zero).should eq zero
     end
 
     it "returns the same value if any of the operands is unlimited" do
       unlimited.ceil(rounding).should eq unlimited
-      s.gib(8).ceil(unlimited).should eq s.gib(8)
+      8.gib.ceil(unlimited).should eq 8.gib
       unlimited.ceil(zero).should eq unlimited
       unlimited.ceil(unlimited).should eq unlimited
     end
 
     it "returns the same value when rounding to 1 byte" do
-      s.kib(4).ceil(one_byte).should eq s.kib(4)
+      4.kib.ceil(one_byte).should eq 4.kib
     end
 
     it "returns the same value when it's divisible by the size" do
@@ -551,20 +547,20 @@ describe Y3Storage::DiskSize do
     rounding = Y3Storage::DiskSize.new(31337)
 
     it "returns the same value if any of the operands is zero" do
-      zero.floor(s.mib(4)).should eq zero
-      s.mib(4).floor(zero).should eq s.mib(4)
+      zero.floor(4.mib).should eq zero
+      4.mib.floor(zero).should eq 4.mib
       zero.floor(zero).should eq zero
     end
 
     it "returns the same value if any of the operands is unlimited" do
-      unlimited.floor(s.gib(8)).should eq unlimited
-      s.gib(8).floor(unlimited).should eq s.gib(8)
+      unlimited.floor(8.gib).should eq unlimited
+      8.gib.floor(unlimited).should eq 8.gib
       unlimited.floor(zero).should eq unlimited
       unlimited.floor(unlimited).should eq unlimited
     end
 
     it "returns the same value when rounding to 1 byte" do
-      s.kib(4).floor(one_byte).should eq s.kib(4)
+      4.kib.floor(one_byte).should eq 4.kib
     end
 
     it "returns the same value when it's divisible by the size" do
