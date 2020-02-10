@@ -1,0 +1,6 @@
+dist: xenial
+language: crystal
+crystal:
+  - latest
+script:
+  - cd crystal && make test

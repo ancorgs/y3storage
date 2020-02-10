@@ -24,3 +24,4 @@ end
 require "./y3storage/exceptions"
 require "./y3storage/disk_size"
 require "./y3storage/refinements"
+require "./y3storage/secret_attributes"
