@@ -1,4 +1,4 @@
-# Copyright (c) [2016-2017] SUSE LLC
+# Copyright (c) [2017] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,13 +17,29 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-module Y3Storage
-  VERSION = "0.1.0"
-end
+require "./issue"
 
-require "./y3storage/exceptions"
-require "./y3storage/disk_size"
-require "./y3storage/autoinst_profile"
-require "./y3storage/autoinst_issues"
-require "./y3storage/refinements"
-require "./y3storage/secret_attributes"
+module Y3Storage
+  module AutoinstIssues
+    # The proposal was successful but there is not root partition (/) defined.
+    #
+    # This is a fatal error because the installation is not possible.
+    class MissingRoot < Issue
+      # Return problem severity
+      #
+      # Returns `Symbol` :fatal
+      # See `Issue#severity`
+      def severity
+        :fatal
+      end
+
+      # Return the error message to be displayed
+      #
+      # Returns `String` Error message
+      # See `Issue#message`
+      def message
+        "No root partition (/) was found."
+      end
+    end
+  end
+end

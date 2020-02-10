@@ -1,4 +1,5 @@
-# Copyright (c) [2016-2017] SUSE LLC
+#
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -18,12 +19,15 @@
 # find current contact information at www.suse.com.
 
 module Y3Storage
-  VERSION = "0.1.0"
+  module AutoinstProfile
+    # Thin object oriented layer on top of a <partition> section of the
+    # AutoYaST profile.
+    #
+    # So far, this class is only a placeholder needed to port AutoinstIssue
+    class PartitionSection
+      def crypt_method
+        :luks1
+      end
+    end
+  end
 end
-
-require "./y3storage/exceptions"
-require "./y3storage/disk_size"
-require "./y3storage/autoinst_profile"
-require "./y3storage/autoinst_issues"
-require "./y3storage/refinements"
-require "./y3storage/secret_attributes"

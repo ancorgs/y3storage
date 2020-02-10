@@ -1,4 +1,5 @@
-# Copyright (c) [2016-2017] SUSE LLC
+#
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -18,12 +19,11 @@
 # find current contact information at www.suse.com.
 
 module Y3Storage
-  VERSION = "0.1.0"
+  module AutoinstProfile
+    # Devices skip list in a <drive> section of an AutoYaST profile.
+    #
+    # So far, this class is only a placeholder needed to port AutoinstIssue
+    class SkipListSection
+    end
+  end
 end
-
-require "./y3storage/exceptions"
-require "./y3storage/disk_size"
-require "./y3storage/autoinst_profile"
-require "./y3storage/autoinst_issues"
-require "./y3storage/refinements"
-require "./y3storage/secret_attributes"

@@ -1,4 +1,4 @@
-# Copyright (c) [2016-2017] SUSE LLC
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -18,12 +18,14 @@
 # find current contact information at www.suse.com.
 
 module Y3Storage
-  VERSION = "0.1.0"
+  # Namespace adding an OOP layer on top of the <partitioning> section of the
+  # AutoYaST profile and its subsections.
+  #
+  # At some point, it would probably make sense to move all the contained
+  # classes from Y2Storage to AutoYaST.
+  module AutoinstProfile
+  end
 end
 
-require "./y3storage/exceptions"
-require "./y3storage/disk_size"
-require "./y3storage/autoinst_profile"
-require "./y3storage/autoinst_issues"
-require "./y3storage/refinements"
-require "./y3storage/secret_attributes"
+require "./autoinst_profile/partition_section"
+require "./autoinst_profile/skip_list_section"

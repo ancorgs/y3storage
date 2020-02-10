@@ -1,4 +1,4 @@
-# Copyright (c) [2016-2017] SUSE LLC
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,13 +17,20 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-module Y3Storage
-  VERSION = "0.1.0"
-end
+require "../spec_helper"
 
-require "./y3storage/exceptions"
-require "./y3storage/disk_size"
-require "./y3storage/autoinst_profile"
-require "./y3storage/autoinst_issues"
-require "./y3storage/refinements"
-require "./y3storage/secret_attributes"
+Spectator.describe Y3Storage::AutoinstIssues::MissingRoot do
+  subject(:issue) { described_class.new }
+
+  describe "#message" do
+    it "returns a description of the issue" do
+      expect(issue.message).to contain "No root partition"
+    end
+  end
+
+  describe "#severity" do
+    it "returns :fatal" do
+      expect(issue.severity).to eq(:fatal)
+    end
+  end
+end
