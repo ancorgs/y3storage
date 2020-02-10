@@ -36,8 +36,8 @@ module Y3Storage
         value.nil? ? "" : "<secret>"
       end
 
-      def inspect
-        value.nil? ? "nil" : "<secret>"
+      def inspect(io)
+        io.puts "<secret>"
       end
 
       def instance_variables
