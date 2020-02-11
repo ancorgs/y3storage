@@ -1,0 +1,98 @@
+# Configuration template - Base your bindgen configuration on this!
+
+# A note on templates: Some values are "templated".  This means they're of type
+# `String`.  All occurences of the percent-sign ("%") will be replaced by a
+# computed value.
+# Additionally, templated strings allow access to environment variables  using
+# curly braces: `{CC}` would be expanded to the value of `ENV["CC"]`.  It's
+# possible to provide a fall back value, which is used only if the given
+# environment variable doesn't exist: `{CC|gcc}` would expand to `ENV["CC"]`,
+# or if it is not set, to `gcc`.  You can also put a percent-sign in there:
+# `{LIBRARY_PATH|%}` will expand to `ENV["LIBRARY_PATH"]`, or to the replacement
+# value otherwise.
+
+# Defines the `module X` into which *all* code will be put.
+#   Mandatory!
+module: Storage
+
+# Defines how conversions in C/C++ shall happen.  Use `boehmgc-cpp` for C++,
+# or `boehmgc-c` for pure C.
+#
+# Don't worry too much about this setting at first.
+cookbook: boehmgc-cpp # Default!
+
+# Defines the `ld_flags` value for the `@[Link]` directive of the generated `lib`.
+# `%` will be replaced by the path to the base-directory of your project,
+# relative to the path of the generated `.cr` file.
+library: "%/ext/binding.a"
+
+# Processors pipeline.  See `README.md` for details on each.
+# Defaults to the following:
+processors:
+  # Graph-refining processors:
+  - default_constructor # Create default constructors where possible
+  - function_class # Turn OOP-y C APIs into real classes
+  - inheritance # Mirror inheritance hierarchy from C++
+  - copy_structs # Copy structures as marked
+  - macros # Support for macro mapping
+  - functions # Add non-class functions
+  - filter_methods # Throw out filtered methods
+  - extern_c # Directly bind to pure C functions
+  - instantiate_containers # Actually instantiate containers
+  - enums # Add enums
+  # Preliminary generation processors:
+  - crystal_wrapper # Create Crystal wrappers
+  - virtual_override # Allow overriding C++ virtual methods
+  - cpp_wrapper # Create C++ <-> C wrappers
+  - crystal_binding # Create `lib` bindings for the C wrapper
+  - sanity_check # Shows issues, if any
+
+# Generator configuration.  These write the actual output to disk.
+generators:
+  # C++ generator
+  cpp:
+    # Output file path  (Mandatory)
+    output: ext/my_bindings.cpp
+    # Output file preamble  (Optional)
+    preamble: |-
+      #include "bindgen_helper.hpp"
+    # Command to run after the generator.  (Optional!)
+    # Will be executed as-written in the output directory.
+    # If the command signals failure, bindgen will halt too.
+    build: make
+    # Small-ish bindings may get away without a custom Makefile:
+    # build: "{CXX|c++} -std=c++11 -c -o binding.o -lMyLib my_bindings.cpp"
+    # Do you have complex dependencies?  Use a conditional!
+    # if_os_is_windows: # Read the `YAML configuration` section in README.md
+    #   build: mingw-make
+  # Crystal generator.  Configuration style is exactly the same.
+  crystal:
+    # You'll most likely only need the `output` option.
+    output: src/storage/binding.cr
+
+# Configuration for the C++ parser.
+parser:
+  # List of files to include.  Can be relative to search-paths.
+  # This is the only required option:
+  files:
+    - storage/Devicegraph.h
+  # All of the following are optional:
+  #
+  # List of include search-paths.  If omitted, only the systems default paths
+  # will be searched.
+  includes:
+    - "%/libstorage-ng" # `%` expands to the absolute project root path.
+  # Path to the `bindgen-clang` binary.
+  binary: lib/bindgen/clang/bindgen
+  # Additional Clang flags.  Defaults to C++11:
+  flags: [ "-x", "c++", "-std=c++11" ]
+  # Additional "#define"s passed to Clang.  Defaults to the following:
+  defines:
+    - __STDC_CONSTANT_MACROS
+    - __STDC_LIMIT_MACROS
+
+# Map of classes to bind to.  A class inheriting another class should follow
+# *after* that base-class.
+classes:
+  # Maps from the name of the C++ class, to the Crystal class.
+  Devicegraph: Devigegraph

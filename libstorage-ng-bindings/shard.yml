@@ -1,0 +1,12 @@
+name: libstorage-ng-bindings
+version: 0.1.0
+
+authors:
+  - Josef Reidinger <jreidinger@suse.cz>
+crystal: 0.32.1
+
+license: GPL
+
+development_dependencies:
+  bindgen:
+    github: jreidinger/bindgen

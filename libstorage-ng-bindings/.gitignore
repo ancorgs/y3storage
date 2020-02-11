@@ -1,0 +1,4 @@
+shard.lock
+/lib
+/ext/*.cpp
+/ext/*.hpp
