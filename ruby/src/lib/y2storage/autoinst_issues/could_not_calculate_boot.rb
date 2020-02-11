@@ -23,10 +23,6 @@ module Y2Storage
   module AutoinstIssues
     # It was not possible to find a way to make the system bootable
     class CouldNotCalculateBoot < Issue
-      def initialize(*args)
-        super
-      end
-
       # Fatal problem
       #
       # @return [Symbol] :warn

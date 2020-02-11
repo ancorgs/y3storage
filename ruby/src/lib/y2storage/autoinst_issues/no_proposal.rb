@@ -23,10 +23,6 @@ module Y2Storage
   module AutoinstIssues
     # Represents a problem that occurs when no proposal is possible
     class NoProposal < Issue
-      def initialize(*args)
-        super
-      end
-
       # Return problem severity
       #
       # @return [Symbol] :fatal
