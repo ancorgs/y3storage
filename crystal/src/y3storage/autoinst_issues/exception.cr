@@ -42,6 +42,9 @@ module Y3Storage
       # Gets only one argument of type `::Exception`
       def initialize(*args)
         first = args[0]?
+
+        # See `Issue#initialize` for an explanation about why this manual validation is needed
+        # instead of declaring the arguments of `#initialize` more explicitly
         if first && first.is_a?(::Exception)
           @error = first
         else

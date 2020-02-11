@@ -54,6 +54,8 @@ module Y3Storage
         second = args[1]?
         third = args[2]?
 
+        # See `Issue#initialize` for an explanation about why this manual validation is needed
+        # instead of declaring the arguments of `#initialize` more explicitly
         if first.is_a?(typeof(@section)) && second.is_a?(Symbol) && third.is_a?(typeof(@value))
           @section = first
           @attr = second

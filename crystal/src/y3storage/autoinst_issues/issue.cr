@@ -31,7 +31,10 @@ module Y3Storage
         nil
       end
 
-      # Subclass identified `type`
+      # Subclass identified by `type`
+      #
+      # In Ruby, `List#add` relies on `Y2Storage::AutoinstIssues.const_get`. Since there is no
+      # `cont_get` in Crystal, this class method is implemented to achieve a similar goal.
       def self.subclass(type)
         class_name = type.to_s.split("_").map(&.capitalize).join
 
@@ -40,6 +43,15 @@ module Y3Storage
         end
       end
 
+      # Constructor
+      #
+      # In the original Ruby code, each subclass of Issue has a completely different constructor
+      # with a completely different set of arguments. New objects are instantiated with a generic
+      # call like `calculated_class.new(*calculated_args)`... which couldn't be checked by Crystal
+      # at compilation if every constructor had a different signature.
+      #
+      # So we enforce the same signature `initialize(*args)` in all subclasses, which means we
+      # have to validate the passed arguments in the body of each constructor.
       def initialize(*args)
       end
 

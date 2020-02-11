@@ -58,6 +58,9 @@ module Y3Storage
       def initialize(*args)
         first = args[0]?
         second = args[1]?
+
+        # See `Issue#initialize` for an explanation about why this manual validation is needed
+        # instead of declaring the arguments of `#initialize` more explicitly
         if first.is_a?(typeof(@section)) && second.is_a?(typeof(@reason))
           @section = first
           @reason = second
