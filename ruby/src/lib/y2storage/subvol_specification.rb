@@ -112,12 +112,10 @@ module Y2Storage
         arch[0] = "" if negate # remove leading "!"
         match = block_given? ? block.call(arch) : arch == target_arch
         if match && negate
-          log.info("Not using #{self} for explicitly excluded arch #{arch}")
           return false
         end
         use_subvol ||= match
       end
-      log.info("Using arch specific #{self}: #{use_subvol}")
       use_subvol
     end
 
@@ -138,7 +136,6 @@ module Y2Storage
       archs = nil
       archs = xml["archs"].gsub(/\s+/, "").split(",") if xml.key?("archs")
       planned_subvol = SubvolSpecification.new(path, copy_on_write: cow, archs: archs)
-      log.info("Creating from XML: #{planned_subvol}")
       planned_subvol
     end
 
@@ -148,7 +145,6 @@ module Y2Storage
     # @return [SubvolSpecification]
     def self.create_from_btrfs_subvolume(subvolume)
       subvol = SubvolSpecification.new(subvolume.path, copy_on_write: !subvolume.nocow?)
-      log.info "Creating from Btrfs subvolume: #{subvol}"
       subvol
     end
 
