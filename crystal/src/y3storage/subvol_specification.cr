@@ -1,5 +1,4 @@
-# Copyright (c) [2012-2016] Novell, Inc.
-# Copyright (c) [2017] SUSE LLC
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -18,12 +17,14 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-module Y2Storage
+module Y3Storage
   # Helper class to represent a subvolume specification as defined
   # in control.xml
   #
   class SubvolSpecification
-    attr_accessor :path, :copy_on_write, :archs
+    property path : String
+    property copy_on_write : Bool
+    property archs : Array(String)
 
     COW_SUBVOL_PATHS = [
       "home",
@@ -59,7 +60,7 @@ module Y2Storage
       "boot/grub2/x86_64-efi"       => ["x86_64"],
     }
 
-    def initialize(path, copy_on_write: true, archs: nil)
+    def initialize(path, copy_on_write = true, archs = [] of String)
       @path = path
       @copy_on_write = copy_on_write
       @archs = archs
@@ -72,7 +73,7 @@ module Y2Storage
     end
 
     def arch_specific?
-      !archs.nil?
+      !archs.empty?
     end
 
     # Comparison operator for sorting
@@ -168,7 +169,7 @@ module Y2Storage
       return nil if subvolumes_xml.nil?
       return nil unless subvolumes_xml.respond_to?(:map)
 
-      subvols = subvolumes_xml.each_with_object([]) do |xml, result|
+      subvols = subvolumes_xml.each_with_object([] of SubvolSpecification) do |xml, result|
         # Remove nil subvols due to XML parse errors
         next if xml.nil?
 
@@ -204,3 +205,4 @@ module Y2Storage
     end
   end
 end
+
