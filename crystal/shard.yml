@@ -11,3 +11,4 @@ license: GPL
 development_dependencies:
   spectator:
     gitlab: arctic-fox/spectator
+    version: ~> 0.9.6

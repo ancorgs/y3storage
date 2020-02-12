@@ -1,4 +1,4 @@
-# Copyright (c) [2018] SUSE LLC
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,27 +17,15 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "y2storage/autoinst_issues/issue"
-
-module Y2Storage
-  module AutoinstIssues
-    # It was not possible to find a way to make the system bootable
-    class CouldNotCalculateBoot < Issue
-      # Fatal problem
-      #
-      # @return [Symbol] :warn
-      # @see Issue#severity
-      def severity
-        :warn
-      end
-
-      # Return the error message to be displayed
-      #
-      # @return [String] Error message
-      # @see Issue#message
-      def message
-        "Failed to calculate the requirements for booting. Your system might not boot properly."
-      end
-    end
+module Y3Storage
+  # Namespace adding an OOP layer on top of the <partitioning> section of the
+  # AutoYaST profile and its subsections.
+  #
+  # At some point, it would probably make sense to move all the contained
+  # classes from Y2Storage to AutoYaST.
+  module AutoinstProfile
   end
 end
+
+require "./autoinst_profile/partition_section"
+require "./autoinst_profile/skip_list_section"

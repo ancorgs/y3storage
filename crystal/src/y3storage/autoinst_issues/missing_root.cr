@@ -1,4 +1,4 @@
-# Copyright (c) [2018] SUSE LLC
+# Copyright (c) [2017] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,26 +17,28 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "y2storage/autoinst_issues/issue"
+require "./issue"
 
-module Y2Storage
+module Y3Storage
   module AutoinstIssues
-    # It was not possible to find a way to make the system bootable
-    class CouldNotCalculateBoot < Issue
-      # Fatal problem
+    # The proposal was successful but there is not root partition (/) defined.
+    #
+    # This is a fatal error because the installation is not possible.
+    class MissingRoot < Issue
+      # Return problem severity
       #
-      # @return [Symbol] :warn
-      # @see Issue#severity
+      # Returns `Symbol` :fatal
+      # See `Issue#severity`
       def severity
-        :warn
+        :fatal
       end
 
       # Return the error message to be displayed
       #
-      # @return [String] Error message
-      # @see Issue#message
+      # Returns `String` Error message
+      # See `Issue#message`
       def message
-        "Failed to calculate the requirements for booting. Your system might not boot properly."
+        "No root partition (/) was found."
       end
     end
   end

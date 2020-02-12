@@ -1,4 +1,5 @@
-# Copyright (c) [2018] SUSE LLC
+#
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,27 +18,12 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "y2storage/autoinst_issues/issue"
-
-module Y2Storage
-  module AutoinstIssues
-    # It was not possible to find a way to make the system bootable
-    class CouldNotCalculateBoot < Issue
-      # Fatal problem
-      #
-      # @return [Symbol] :warn
-      # @see Issue#severity
-      def severity
-        :warn
-      end
-
-      # Return the error message to be displayed
-      #
-      # @return [String] Error message
-      # @see Issue#message
-      def message
-        "Failed to calculate the requirements for booting. Your system might not boot properly."
-      end
+module Y3Storage
+  module AutoinstProfile
+    # Devices skip list in a <drive> section of an AutoYaST profile.
+    #
+    # So far, this class is only a placeholder needed to port AutoinstIssue
+    class SkipListSection
     end
   end
 end

@@ -1,4 +1,4 @@
-# Copyright (c) [2018] SUSE LLC
+# Copyright (c) [2017-2020] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -17,27 +17,20 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "y2storage/autoinst_issues/issue"
+require "../spec_helper"
 
-module Y2Storage
-  module AutoinstIssues
-    # It was not possible to find a way to make the system bootable
-    class CouldNotCalculateBoot < Issue
-      # Fatal problem
-      #
-      # @return [Symbol] :warn
-      # @see Issue#severity
-      def severity
-        :warn
-      end
+Spectator.describe Y3Storage::AutoinstIssues::MissingRoot do
+  subject(:issue) { described_class.new }
 
-      # Return the error message to be displayed
-      #
-      # @return [String] Error message
-      # @see Issue#message
-      def message
-        "Failed to calculate the requirements for booting. Your system might not boot properly."
-      end
+  describe "#message" do
+    it "returns a description of the issue" do
+      expect(issue.message).to contain "No root partition"
+    end
+  end
+
+  describe "#severity" do
+    it "returns :fatal" do
+      expect(issue.severity).to eq(:fatal)
     end
   end
 end

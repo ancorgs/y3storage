@@ -17,12 +17,14 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-module Y3storage
+module Y3Storage
   VERSION = "0.1.0"
 end
 
 require "./y3storage/exceptions"
 require "./y3storage/disk_size"
+require "./y3storage/autoinst_profile"
+require "./y3storage/autoinst_issues"
 require "./y3storage/refinements"
 require "./y3storage/secret_attributes"
 require "./y3storage/subvol_specification"
