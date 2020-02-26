@@ -1,0 +1,3 @@
+[submodule "libstorage-ng-bindings/libstorage-ng"]
+	path = libstorage-ng-bindings/libstorage-ng
+	url = git@github.com:openSUSE/libstorage-ng.git
